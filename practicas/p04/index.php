@@ -107,6 +107,37 @@
 
 		<p>Marca error en la inicialización de $c ya que no reconoce su valor ($b*10) ya que $b es un string y lo reconoce como NULL</p>
 
+
+		<h2>Ejercicio 4</h2>
+		<p>Lee y muestra los valores de las variables del ejercicio anterior, pero ahora con la ayuda de
+		la matriz $GLOBALS o del modificador global de PHP.</p>
+
+		<?php
+		$a = "PHP5";
+		$z[] = &$a;
+		$b = "5a version de PHP";
+		$c = $b * 10;
+		$a .= $b;
+		$b *= $c;
+		$z[0] = "MySQL";
+		echo "\$a = ";
+		
+		var_dump($GLOBALS['a']);
+		echo "<br><br>";
+
+		echo "\$z = ";
+		var_dump($GLOBALS['z']);
+		echo "<br><br>";
+
+		echo "\$b = ";
+		var_dump($GLOBALS['b']);
+		echo "<br><br>";
+
+		echo "\$c = ";
+		var_dump($GLOBALS['c']);
+		echo "<br><br>";
+		?>
+
 <!-- Code injected by live-server -->
 <script>
 	// <![CDATA[  <-- For SVG support
