@@ -82,7 +82,7 @@
 		var_dump($b);
 		echo "<br><br>";
 
-		$c = $b * 10; 
+		@$c = $b * 10; 
 		echo "\$c = ";
 		var_dump($c);
 		echo "<br><br>";
@@ -93,7 +93,7 @@
 		var_dump($a);
 		echo "<br><br>";
 
-		$b *= $c; 
+		@$b *= $c; 
 		echo "\$b = ";
 		var_dump($b);
 		echo "<br><br>";
@@ -117,9 +117,9 @@
 		$a = "PHP5";
 		$z[] = &$a;
 		$b = "5a version de PHP";
-		$c = $b * 10;
+		@$c = $b * 10;
 		$a .= $b;
-		$b *= $c;
+		@$b *= $c;
 		$z[0] = "MySQL";
 		echo "\$a = ";
 
