@@ -186,6 +186,14 @@
 		echo "\$e = " . var_export($e, true) . "<br>";
 		?>
 
+	<h2>Ejercicio 7</h2>
+	<ul>
+    <li><strong>Versión de Apache y PHP:</strong> <?php echo $_SERVER['SERVER_SOFTWARE']; ?></li>
+    <li><strong>Sistema Operativo del Servidor:</strong> <?php echo php_uname(); ?></li>
+    <li><strong>Idioma del Navegador (Cliente):</strong> <?php echo $_SERVER['HTTP_ACCEPT_LANGUAGE']; ?></li>
+	</ul>
+
+
 <!-- Code injected by live-server -->
 <script>
 	// <![CDATA[  <-- For SVG support
