@@ -30,6 +30,39 @@
         echo '<li>$house*5 es inválida porque el símbolo * no está permitido.</li>';
         echo '</ul>';
     ?>
+	<h2>Ejercicio 2</h2>
+    <p>Proporcionar los valores de $a, $b, $c como sigue:</p>
+    
+	<?php
+        //AQUI VA MI CÓDIGO PHP
+		$a = "ManejadorSQL";
+		$b = 'MySQL';
+		$c = &$a;
+
+        echo 'Impresión de las variables originales';
+		echo "<br>";
+		echo "\$a = $a"; 
+		echo "<br>";
+		echo "\$b = $b";
+		echo "<br>";
+		echo "\$c = $c";
+		echo "<br>";
+		echo "<br>";
+		$a = "PHP server";
+		$b = &$a;
+
+		echo 'Impresión de las variables con modificación';
+		echo "<br>";
+		echo "\$a = $a";
+		echo "<br>";
+		echo "\$b = $b";
+		echo "<br>";
+		echo "\$c = $c";
+		echo "<br>";
+		echo "<br>";
+		echo 'Explicación: Cuando el valor de $a cambia, también se modifica el valor de $c, ya que esta variable guarda la referencia de a, y $b al inicio era una variable independiente, pero al cambiar su valor a la referencia de $a este también se modifica. Quedando las tres variables con el valor que se le proporcione a $a';
+		?>
+
 <!-- Code injected by live-server -->
 <script>
 	// <![CDATA[  <-- For SVG support
