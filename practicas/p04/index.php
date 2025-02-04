@@ -113,7 +113,7 @@
 		la matriz $GLOBALS o del modificador global de PHP.</p>
 
 		<?php
-		
+		unset($a, $b, $c, $z);
 		$a = "PHP5";
 		$z[] = &$a;
 		$b = "5a version de PHP";
