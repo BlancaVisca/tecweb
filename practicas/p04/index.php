@@ -63,6 +63,50 @@
 		echo 'Explicación: Cuando el valor de $a cambia, también se modifica el valor de $c, ya que esta variable guarda la referencia de a, y $b al inicio era una variable independiente, pero al cambiar su valor a la referencia de $a este también se modifica. Quedando las tres variables con el valor que se le proporcione a $a';
 		?>
 
+	<h2>Ejercicio 3</h2>
+	<p>Muestra el contenido de cada variable inmediatamente después de cada asignación, verificar la evolución del tipo de estas variables (imprime todos los componentes de los arreglo):</p>
+		<?php
+
+		$a = "PHP5";
+		echo "\$a = ";
+		var_dump($a);
+		echo "<br><br>";
+
+		$z[] = &$a; 
+		echo "\$z = ";
+		var_dump($z);
+		echo "<br><br>";
+
+		$b = "5a version de PHP";
+		echo "\$b = ";
+		var_dump($b);
+		echo "<br><br>";
+
+		$c = $b * 10; 
+		echo "\$c = ";
+		var_dump($c);
+		echo "<br><br>";
+		
+
+		$a .= $b; 
+		echo "\$a =";
+		var_dump($a);
+		echo "<br><br>";
+
+		$b *= $c; 
+		echo "\$b = ";
+		var_dump($b);
+		echo "<br><br>";
+
+		$z[0] = "MySQL"; 
+		echo "\$z = ";
+		var_dump($z);
+		echo "<br><br>";
+
+		?>
+
+		<p>Marca error en la inicialización de $c ya que no reconoce su valor ($b*10) ya que $b es un string y lo reconoce como NULL</p>
+
 <!-- Code injected by live-server -->
 <script>
 	// <![CDATA[  <-- For SVG support
