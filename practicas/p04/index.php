@@ -159,7 +159,32 @@
 		echo "\$b = $b <br>";
 		echo "\$c = $c <br>";
 	?>
+<h2>Ejercicio 6</h2>
 
+
+		<?php
+		$a = "0";          
+		$b = "TRUE";       
+		$c = FALSE;        
+		$d = ($a OR $b);   
+		$e = ($a AND $c);  
+		$f = ($a XOR $b);  
+
+		echo "Valores booleanos de las variables:";
+		echo "<ul>";
+		echo "<li>\$a = "; var_dump((bool)$a); 
+		echo "<li>\$b = "; var_dump((bool)$b); 
+		echo "<li>\$c = "; var_dump($c);
+		echo "<li>\$d = "; var_dump($d); 
+		echo "<li>\$e = "; var_dump($e);
+		echo "<li>\$f = "; var_dump($f); 
+		echo "</ul>";
+
+		
+		echo "Transformando valores booleanos en texto usando var_export:";
+		echo "<br>\$c = " . var_export($c, true) . "<br>";
+		echo "\$e = " . var_export($e, true) . "<br>";
+		?>
 
 <!-- Code injected by live-server -->
 <script>
