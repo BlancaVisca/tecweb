@@ -113,6 +113,7 @@
 		la matriz $GLOBALS o del modificador global de PHP.</p>
 
 		<?php
+		
 		$a = "PHP5";
 		$z[] = &$a;
 		$b = "5a version de PHP";
@@ -121,7 +122,7 @@
 		$b *= $c;
 		$z[0] = "MySQL";
 		echo "\$a = ";
-		
+
 		var_dump($GLOBALS['a']);
 		echo "<br><br>";
 
@@ -137,6 +138,28 @@
 		var_dump($GLOBALS['c']);
 		echo "<br><br>";
 		?>
+
+	<h2>Ejercicio 5 </h2>
+	<p>Dar el valor de las variables $a, $b, $c al final del siguiente script:</p>
+	<ul>
+    <li>$a = "7 personas";</li>
+    <li>$b = (integer) $a;</li>
+    <li>$a = "9E3";</li>
+    <li>$c = (double) $a;</li>
+	</ul>
+	<p>Variables finales:</p>
+	<?php
+		unset($a, $b, $c);
+		$a = "7 personas"; 
+		$b = (integer) $a; 
+		$a = "9E3"; 
+		$c = (double) $a; 
+
+		echo "\$a = $a <br>";
+		echo "\$b = $b <br>";
+		echo "\$c = $c <br>";
+	?>
+
 
 <!-- Code injected by live-server -->
 <script>
