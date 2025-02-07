@@ -31,8 +31,15 @@
         if(isset($_GET['numero']))
         {
             ejercicio3($_GET['numero']);
-            ejercicio31($_GET['numero']);
+            //ejercicio31($_GET['numero']);
         }
+    ?>
+
+    <h2>Ejercicio 4</h2>
+    <p>Arreglo del abecedario con codigo ASCII</p>
+    <?php
+        require_once __DIR__.'/src/funciones.php';
+        ejercicio4();
     ?>
 
     <h2>Ejemplo de POST</h2>

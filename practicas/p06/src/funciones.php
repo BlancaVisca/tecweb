@@ -42,8 +42,8 @@ function ejercicio3($num)
         $a = rand(1, 100); 
         $contador++;
     }
-    echo 'Número encontrado: $a<br>';
-    echo 'Intentos: $contador<br>';
+    echo 'Número encontrado:'. $a.'<br>';
+    echo 'Intentos: .'.$contador.'<br>';
       
 
 }
@@ -58,10 +58,29 @@ function ejercicio31($num)
     }while($a%$num!=0);
 
     echo 'Número encontrado:'. $a.'<br>';
-    echo 'Intentos: .'$contador.'<br>';
+    echo 'Intentos: '.$contador.'<br>';
       
 
 }
 
+function ejercicio4()
+{
+    $arreglo=array();
+
+    for($i=97;$i<=122;$i++)
+    {
+        $arreglo[$i] = chr($i);
+    }
+
+    echo '<table border="1">';
+    echo '<tr><th>ASCII</th><th>Letra</th></tr>';
+    
+    foreach ($arreglo as $key => $value) {
+        echo "<tr><td>$key</td><td>$value</td></tr>";
+    }
+
+    echo '</table>'; 
+
+}
 ?>
 
