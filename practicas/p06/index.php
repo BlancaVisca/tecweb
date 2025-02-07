@@ -69,33 +69,6 @@
 }
 ?>
 
-<h2>Ejercicio 5 FORMULARIO</h2>
-    <form action="http://localhost/tecweb/practicas/p06/index.php"  method="post">
-        Edad: <input type="number" name="matricula"><br>
-        Sexo: <input type="text" name="sexo"><br>
-        <input type="submit">
-    </form>
-    <br>
-
-    <?php
-    
-    require_once __DIR__ . '/src/funciones.php'; 
-
-    if ($_SERVER["REQUEST_METHOD"] == "POST") { 
-        if (isset($_POST['edad']) && isset($_POST['sexo'])) {
-            
-            $edad = $_POST['edad'];
-            $sexo = $_POST['sexo'];
-
-            $mensaje = ejercicio5($edad, $sexo);
-
-            echo "<h3>Resultado:</h3>";
-            echo "Su edad es: $edad años y su sexo es $sexo.<br>";
-            echo "<p>$mensaje</p>";
-        }
-}
-?>
-
 
 <h2>Ejercicio 6 </h2>
 
