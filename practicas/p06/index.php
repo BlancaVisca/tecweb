@@ -69,7 +69,7 @@
 }
 ?>
 
-<h2>Ejercicio 6 FORMULARIO</h2>
+<h2>Ejercicio 5 FORMULARIO</h2>
     <form action="http://localhost/tecweb/practicas/p06/index.php"  method="post">
         Edad: <input type="number" name="matricula"><br>
         Sexo: <input type="text" name="sexo"><br>
@@ -100,10 +100,7 @@
 <h2>Ejercicio 6 </h2>
 
 <h4>Automoviles registrados</h4>
-    <?php
-        require_once __DIR__.'/src/funciones.php';
-        print_r($vehiculos); 
-    ?>
+
 
     <h3>Busqueda:</h3>
 

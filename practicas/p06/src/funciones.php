@@ -297,18 +297,7 @@ function mostrarauto($matricula){
 
     function mostrarautos() {
         global $vehiculos;
-        foreach ($vehiculos as $matricula => $auto) {
-
-            echo "<h2>Auto:</h2>";
-            echo "<P>Matrícula: $matricula</P>";
-            echo "<p>Marca: " . $auto["Auto"]["marca"] . "</p>";
-            echo "<p>Modelo: " . $auto["Auto"]["modelo"] . "</p>";
-            echo "<p>Tipo: " . $auto["Auto"]["tipo"] . "</p>";
-            echo "<p>Nombre del Propietario: " . $auto["Propietario"]["nombre"] . "</p>";
-            echo "<p>Ciudad: " . $auto["Propietario"]["ciudad"] . "</p>";
-            echo "<p>Dirección: " . $auto["Propietario"]["direccion"] . "</p>";
-            
-        }
+        print_r($vehiculos); 
     }
 
 ?>
