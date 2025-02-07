@@ -25,7 +25,7 @@
         
     ?>
     <h2>Ejercicio 3</h2>
-    <p>Escribir programa para comprobar si un número es un múltiplo de 5 y 7</p>
+    <p>Programa para encontrara un numero aleatorio multiplo del numero a ingresar</p>
     <?php
         require_once __DIR__.'/src/funciones.php';
         if(isset($_GET['numero']))
@@ -42,20 +42,59 @@
         ejercicio4();
     ?>
 
-    <h2>Ejemplo de POST</h2>
-    <form action="http://localhost/tecweb/practicas/p04/index.php" method="post">
-        Name: <input type="text" name="name"><br>
-        E-mail: <input type="text" name="email"><br>
+    <h2>Ejercicio 5 FORMULARIO</h2>
+    <form action="http://localhost/tecweb/practicas/p06/index.php"  method="post">
+        Edad: <input type="number" name="edad"><br>
+        Sexo: <input type="text" name="sexo"><br>
         <input type="submit">
     </form>
     <br>
+
     <?php
-        if(isset($_POST["name"]) && isset($_POST["email"]))
-        {
-            echo $_POST["name"];
-            echo '<br>';
-            echo $_POST["email"];
+    
+    require_once __DIR__ . '/src/funciones.php'; 
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST") { 
+        if (isset($_POST['edad']) && isset($_POST['sexo'])) {
+            
+            $edad = $_POST['edad'];
+            $sexo = $_POST['sexo'];
+
+            $mensaje = ejercicio5($edad, $sexo);
+
+            echo "<h3>Resultado:</h3>";
+            echo "Su edad es: $edad años y su sexo es $sexo.<br>";
+            echo "<p>$mensaje</p>";
         }
-    ?>
+}
+?>
+
+<h2>Ejercicio 6 FORMULARIO</h2>
+    <form action="http://localhost/tecweb/practicas/p06/index.php"  method="post">
+        Edad: <input type="number" name="edad"><br>
+        Sexo: <input type="text" name="sexo"><br>
+        <input type="submit">
+    </form>
+    <br>
+
+    <?php
+    
+    require_once __DIR__ . '/src/funciones.php'; 
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST") { 
+        if (isset($_POST['edad']) && isset($_POST['sexo'])) {
+            
+            $edad = $_POST['edad'];
+            $sexo = $_POST['sexo'];
+
+            $mensaje = ejercicio5($edad, $sexo);
+
+            echo "<h3>Resultado:</h3>";
+            echo "Su edad es: $edad años y su sexo es $sexo.<br>";
+            echo "<p>$mensaje</p>";
+        }
+}
+?>
+
 </body>
 </html>
