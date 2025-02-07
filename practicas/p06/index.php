@@ -71,7 +71,7 @@
 
 <h2>Ejercicio 6 FORMULARIO</h2>
     <form action="http://localhost/tecweb/practicas/p06/index.php"  method="post">
-        Edad: <input type="number" name="edad"><br>
+        Edad: <input type="number" name="matricula"><br>
         Sexo: <input type="text" name="sexo"><br>
         <input type="submit">
     </form>
@@ -95,6 +95,35 @@
         }
 }
 ?>
+
+
+<h2>Ejercicio 6 </h2>
+
+<h4>Automoviles registrados</h4>
+    <?php
+        require_once __DIR__.'/src/funciones.php';
+        print_r($vehiculos); 
+    ?>
+
+    <h3>Busqueda:</h3>
+
+    <form method="post" action="http://localhost/tecweb/practicas/p06/index.php">
+        Matrícula: <input type="text" name="matricula"><br>
+
+        <input type="submit" name="buscar" value="Buscar">
+        <input type="submit" name="todos" value="Mostrar todos los vehiculos">
+    </form>
+    <?php
+        require_once __DIR__.'/src/funciones.php';
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            if (isset($_POST["buscar"])) {
+                $matricula = $_POST["matricula"];
+                mostrarauto($matricula);
+            } elseif (isset($_POST["todos"])) {
+                mostrarautos();
+            }
+        }
+    ?>
 
 </body>
 </html>
