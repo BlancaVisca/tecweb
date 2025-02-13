@@ -17,7 +17,7 @@
 		@$link = new mysqli('localhost', 'root', 'blancaflor', 'marketzone');
         /** NOTA: con @ se suprime el Warning para gestionar el error por medio de código */
 
-		/** comprobar la conexión */
+		/** comprobar la conexión con el servidor*/
 		if ($link->connect_errno) 
 		{
 			die('Falló la conexión: '.$link->connect_error.'<br/>');
