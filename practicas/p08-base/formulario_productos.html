@@ -1,0 +1,47 @@
+<!DOCTYPE html >
+<html>
+
+  <head>
+    <meta charset="utf-8" >
+    <title>Registro al Concurso</title>
+    <style type="text/css">
+      ol, ul { 
+      list-style-type: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Registro de Productios </h1>
+
+    <p>Ingresa los productos nuevos al inventario</p>
+
+    <form id="formularioProductos" action="http://localhost/tecweb/practicas/p08-base/set_producto_v2.php" method="post">
+
+    <h2>Información del Producto</h2>
+
+      <fieldset>
+        <legend>Información Del Producto</legend>
+
+        <ul>
+          <li><label for="form-nombre">Nombre:</label> <input type="text" name="nombre" id="form-nombre"></li><br>
+          <li><label for="form-marca">Marca:</label> <input type="text" name="marca" id="form-marca"></li><br>
+          <li><label for="form-modelo">Modelo:</label> <input type="text" name="modelo" id="form-modelo"></li><br>
+          <li><label for="form-precio">Precio:</label> <input type="number" step="0.01" name="precio" id="form-precio"></li><br>
+          <li><label for="form-detalles">Detalles:</label> <input type="text" name="detalles" id="form-detalles"></li><br>
+          <li><label for="form-unidades">Unidades:</label> <input type="number" name="unidades" id="form-unidades"></li><br>
+          <li><label for="form-img">Imagén-URL:</label> <input type="text" name="img" id="form-img"></li><br>
+          
+        </ul>
+      </fieldset>
+
+    
+
+      <p>
+        <input type="submit" value="Registrar">
+        <input type="reset">
+      </p>
+
+    </form>
+  </body>
+</html>
