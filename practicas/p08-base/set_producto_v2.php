@@ -18,7 +18,7 @@ $imagen   = $_POST['img'];
 
 
 
-/** Verificar si el producto ya existe (nombre, modelo y marca) */
+/** Verificar si el producto ya existe (nombre, modelo y marca), deben coincidir los 3 */
 $sql_check = "SELECT * FROM productos WHERE nombre = '{$nombre}' AND marca = '{$marca}' AND modelo = '{$modelo}'";
 $result = $link->query($sql_check);
 
