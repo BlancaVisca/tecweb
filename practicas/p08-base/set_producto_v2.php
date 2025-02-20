@@ -26,7 +26,14 @@ if ($result->num_rows > 0) {
     echo 'El producto ya está registrado con el mismo nombre, modelo y marca.';
 } else {
     /** Insertar producto si no existe */
-    $sql_insert = "INSERT INTO productos VALUES (null, '{$nombre}', '{$marca}', '{$modelo}', {$precio}, '{$detalles}', {$unidades}, '{$imagen}')";
+    /**$sql_insert = "INSERT INTO productos VALUES (null, '{$nombre}', '{$marca}', '{$modelo}', {$precio}, '{$detalles}', {$unidades}, '{$imagen}', 0)";
+    */
+
+    
+    /**INSERTADO CON COLUM NAMES */
+    $sql_insert = "INSERT INTO productos (nombre, marca, modelo, precio, detalles, unidades, imagen) 
+                   VALUES ('{$nombre}', '{$marca}', '{$modelo}', {$precio}, '{$detalles}', {$unidades}, '{$imagen}')";
+
 
     if ($link->query($sql_insert)) {
         echo 'Producto insertado con ID: ' . $link->insert_id;

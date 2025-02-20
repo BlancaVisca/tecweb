@@ -22,7 +22,7 @@
 
 		<h2>Acerca de ti:</h2>
 		<ul>
-			<li><strong>Nombre:</strong> <em><?php echo $_POST[@'name']; ?></em></li>
+			<li><strong>Nombre:</strong> <em><?php echo $_POST['name']; ?></em></li>
 			<li><strong>E-mail:</strong> <em><?php echo $_POST['email']; ?></em></li>
 			<li><strong>Télefono:</strong> <em><?php echo $_POST['phone']; ?></em></li>
 		</ul>
