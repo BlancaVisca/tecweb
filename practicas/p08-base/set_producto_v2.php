@@ -36,7 +36,16 @@ if ($result->num_rows > 0) {
 
 
     if ($link->query($sql_insert)) {
+        
+        echo "<h3>Producto insertado con éxito</h3>";
         echo 'Producto insertado con ID: ' . $link->insert_id;
+        echo "<p><strong>Nombre:</strong> $nombre</p>";
+        echo "<p><strong>Marca:</strong> $marca</p>";
+        echo "<p><strong>Modelo:</strong> $modelo</p>";
+        echo "<p><strong>Precio:</strong> $$precio</p>";
+        echo "<p><strong>Detalles:</strong> $detalles</p>";
+        echo "<p><strong>Unidades:</strong> $unidades</p>";
+        echo "<p><strong>Imagen:</strong> <br><img src='$imagen' alt='Imagen del producto' width='200'></p>";
     } else {
         echo 'El Producto no pudo ser insertado =(';
     }
