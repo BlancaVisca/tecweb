@@ -35,6 +35,27 @@ $link->close();
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" 
         crossorigin="anonymous" />
+    <script>
+        function show() {
+            // se obtiene el id de la fila donde está el botón presionado
+            var rowId = event.target.parentNode.parentNode.id;
+
+            // se obtienen los datos de la fila en forma de arreglo
+            var data = document.getElementById(rowId).querySelectorAll(".row-data");
+
+            var id = data[0].innerHTML;
+            var nombre = data[1].innerHTML;
+            var marca = data[2].innerHTML;
+            var modelo = data[3].innerHTML;
+            var precio = data[4].innerHTML;
+            var unidades = data[5].innerHTML;
+            var detalles = data[6].innerHTML;
+            var imagen = data[7].innerHTML;
+            var eliminado = data[8].innerHTML;
+
+            send2form(id, nombre, marca, modelo, precio, unidades, detalles, imagen, eliminado);
+        }
+    </script>
 </head>
 <body>
     <h3 style="text-align: center;">Productos</h3>
@@ -52,6 +73,8 @@ $link->close();
                     <th scope="col">Unidades</th>
                     <th scope="col">Detalles</th>
                     <th scope="col">Imagen</th>
+                    <th scope="col">Eliminado</th>
+                    <th scope="col">Modificar</th>
                 </tr>
             </thead>
             <tbody>
@@ -62,9 +85,22 @@ $link->close();
                         <td><?= htmlspecialchars($producto['marca']) ?></td>
                         <td><?= htmlspecialchars($producto['modelo']) ?></td>
                         <td><?= htmlspecialchars($producto['precio']) ?></td>
-                        <td><?= htmlspecialchars($producto['unidades']) ?></td>
                         <td><?= htmlspecialchars($producto['detalles']) ?></td>
+                        <td><?= htmlspecialchars($producto['unidades']) ?></td>
                         <td><img src="<?= htmlspecialchars($producto['imagen']) ?>" alt="Imagen" style="width: 100px; height: auto;" /></td>
+                        <td><?= htmlspecialchars($producto['eliminado'])?></td>
+                        <td>
+                            <input type="button" value="Modificar" 
+                            onclick="send2form('<?= htmlspecialchars($producto['id']) ?>', 
+                                                '<?= htmlspecialchars($producto['nombre']) ?>', 
+                                                '<?= htmlspecialchars($producto['marca']) ?>', 
+                                                '<?= htmlspecialchars($producto['modelo']) ?>', 
+                                                '<?= htmlspecialchars($producto['precio']) ?>', 
+                                                '<?= htmlspecialchars($producto['detalles']) ?>',
+                                                '<?= htmlspecialchars($producto['unidades']) ?>',  
+                                                '<?= htmlspecialchars($producto['imagen']) ?>', 
+                                                '<?= htmlspecialchars($producto['eliminado']) ?>')" />
+                        </td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
@@ -72,5 +108,71 @@ $link->close();
     <?php else: ?>
         <p style="color: red; text-align: center;">No hay productos con unidades menores o iguales a <?= $tope ?>.</p>
     <?php endif; ?>
+
+    <script>
+        function send2form(id, nombre, marca, modelo, precio,detalles, unidades, imagen, eliminado) {
+            var form = document.createElement("form");
+
+            var idIn = document.createElement("input");
+            idIn.type = 'hidden';
+            idIn.name = 'id';
+            idIn.value = id;
+            form.appendChild(idIn);
+
+            var nombreIn = document.createElement("input");
+            nombreIn.type = 'hidden';
+            nombreIn.name = 'nombre';
+            nombreIn.value = nombre;
+            form.appendChild(nombreIn);
+
+            var marcaIn = document.createElement("input");
+            marcaIn.type = 'hidden';
+            marcaIn.name = 'marca';
+            marcaIn.value = marca;
+            form.appendChild(marcaIn);
+
+            var modeloIn = document.createElement("input");
+            modeloIn.type = 'hidden';
+            modeloIn.name = 'modelo';
+            modeloIn.value = modelo;
+            form.appendChild(modeloIn);
+
+            var precioIn = document.createElement("input");
+            precioIn.type = 'hidden';
+            precioIn.name = 'precio';
+            precioIn.value = precio;
+            form.appendChild(precioIn);
+
+            var unidadesIn = document.createElement("input");
+            unidadesIn.type = 'hidden';
+            unidadesIn.name = 'unidades';
+            unidadesIn.value = unidades;
+            form.appendChild(unidadesIn);
+
+            var detallesIn = document.createElement("input");
+            detallesIn.type = 'hidden';
+            detallesIn.name = 'detalles';
+            detallesIn.value = detalles;
+            form.appendChild(detallesIn);
+
+            var imagenIn = document.createElement("input");
+            imagenIn.type = 'hidden';
+            imagenIn.name = 'imagen';
+            imagenIn.value = imagen;
+            form.appendChild(imagenIn);
+
+            var eliminadoIn = document.createElement("input");
+            eliminadoIn.type = 'hidden';
+            eliminadoIn.name = 'eliminado';
+            eliminadoIn.value = eliminado;
+            form.appendChild(eliminadoIn);
+
+            form.method = 'POST';
+            form.action = 'formulario_productos_v2.php';  
+
+            document.body.appendChild(form);
+            form.submit();
+        }
+    </script>
 </body>
 </html>
