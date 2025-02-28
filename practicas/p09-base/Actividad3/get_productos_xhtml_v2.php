@@ -18,8 +18,8 @@ if ($link->connect_errno) {
     die('<p style="color: red; text-align: center;">Error en la conexión: ' . htmlspecialchars($link->connect_error) . '</p>');
 }
 
-// Ejecutar consulta solo con productos que no estén eliminados
-if ($result = $link->query("SELECT * FROM productos WHERE unidades <= $tope AND eliminado = 0")) {
+// Ejecutar consulta
+if ($result = $link->query("SELECT * FROM productos WHERE unidades <= $tope")) {
     $productos = $result->fetch_all(MYSQLI_ASSOC);
     $result->free();
 }
@@ -57,21 +57,20 @@ $link->close();
             <tbody>
                 <?php foreach ($productos as $producto): ?>
                     <tr>
-                        <th scope="row"><?= $producto['id'] ?></th>
-                        <td><?= $producto['nombre'] ?></td>
-                        <td><?= $producto['marca'] ?></td>
-                        <td><?= $producto['modelo'] ?></td>
-                        <td><?= $producto['precio'] ?></td>
-                        <td><?= $producto['unidades'] ?></td>
-                        <td><?= $producto['detalles'] ?></td>
-                        <td><img src="<?= $producto['imagen'] ?>" alt="Imagen" style="width: 100px; height: auto;" /></td>
+                        <th scope="row"><?= htmlspecialchars($producto['id']) ?></th>
+                        <td><?= htmlspecialchars($producto['nombre']) ?></td>
+                        <td><?= htmlspecialchars($producto['marca']) ?></td>
+                        <td><?= htmlspecialchars($producto['modelo']) ?></td>
+                        <td><?= htmlspecialchars($producto['precio']) ?></td>
+                        <td><?= htmlspecialchars($producto['unidades']) ?></td>
+                        <td><?= htmlspecialchars($producto['detalles']) ?></td>
+                        <td><img src="<?= htmlspecialchars($producto['imagen']) ?>" alt="Imagen" style="width: 100px; height: auto;" /></td>
                     </tr>
-
                 <?php endforeach; ?>
             </tbody>
         </table>
     <?php else: ?>
-        <p style="color: red; text-align: center;">No hay productos con unidades menores o iguales a <?= $tope ?> que no estén eliminados.</p>
+        <p style="color: red; text-align: center;">No hay productos con unidades menores o iguales a <?= $tope ?>.</p>
     <?php endif; ?>
 </body>
 </html>
