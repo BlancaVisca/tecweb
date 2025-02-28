@@ -18,30 +18,64 @@
 
     <form id="formularioProductos" action="http://localhost/tecweb/practicas/p08-base/set_producto_v2.php" method="post">
 
-    <h2>Información del Producto a Registrar</h2>
-
+      <h2>Información del Producto a Registrar</h2>
+      
       <fieldset>
         <legend>Información Del Producto</legend>
-
+      
         <ul>
-          <li><label for="form-nombre">Nombre:</label> <input type="text" name="nombre" id="form-nombre"></li><br>
-          <li><label for="form-marca">Marca:</label> <input type="text" name="marca" id="form-marca"></li><br>
-          <li><label for="form-modelo">Modelo:</label> <input type="text" name="modelo" id="form-modelo"></li><br>
-          <li><label for="form-precio">Precio:</label> <input type="number" step="0.01" name="precio" id="form-precio"></li><br>
-          <li><label for="form-detalles">Detalles:</label> <input type="text" name="detalles" id="form-detalles"></li><br>
-          <li><label for="form-unidades">Unidades:</label> <input type="number" name="unidades" id="form-unidades"></li><br>
-          <li><label for="form-img">Imagén-URL:</label> <input type="text" name="img" id="form-img"></li><br>
+          <li><label for="form-nombre">Nombre:</label> 
+            <input type="text" name="nombre" id="form-nombre">
+            <div id="res1" style="color: red;"></div>
+          </li><br>
+          
+          <li>
+            <label for="form-marca">Marca del producto:</label> 
+            <select name="marca" id="form-marca">
+                <option value="">Seleccione una marca</option>
+                <option value="Rolex">Rolex</option>
+                <option value="Omega">omega</option>
+                <option value="Tag Heuer">Tag Heuer</option>
+                <option value="Patek Philippe">Patek Philippe</option>
+                <option value="Seiko">Seiko</option>
+            </select>
+            <div id="res2" style="color: red;"></div>
+          </li>
+      
+          <li><label for="form-modelo">Modelo:</label> 
+            <input type="text" name="modelo" id="form-modelo">
+            <div id="res3" style="color: red;"></div>
+          </li><br>
+      
+          <li><label for="form-precio">Precio:</label> 
+            <input type="number" step="0.01" name="precio" id="form-precio">
+            <div id="res4" style="color: red;"></div>
+          </li><br>
+      
+          <li><label for="form-detalles">Detalles:</label> 
+            <input type="text" name="detalles" id="form-detalles">
+            <div id="res5" style="color: red;"></div>
+          </li><br>
+      
+          <li><label for="form-unidades">Unidades:</label> 
+            <input type="number" name="unidades" id="form-unidades">
+            <div id="res6" style="color: red;"></div>
+          </li><br>
+      
+          <li><label for="form-img">Imagén-URL:</label> 
+            <input type="text" name="img" id="form-img">
+            <div id="res7" style="color: red;"></div>
+          </li><br>
           
         </ul>
       </fieldset>
-
-    
-
+      
       <p>
         <input type="submit" value="Registrar">
         <input type="reset">
       </p>
-
-    </form>
+      
+      </form>
+    <script src="./validación.js"></script>
   </body>
 </html>
