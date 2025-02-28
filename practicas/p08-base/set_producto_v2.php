@@ -16,7 +16,9 @@ $detalles = $_POST['detalles'];
 $unidades = $_POST['unidades'];
 $imagen   = $_POST['img'];
 
-
+if (empty($imagen)) {
+    $imagen = "../p07-base/img/imagen.png";  // Ruta predeterminada
+}
 
 /** Verificar si el producto ya existe (nombre, modelo y marca), deben coincidir los 3 */
 $sql_check = "SELECT * FROM productos WHERE nombre = '{$nombre}' AND marca = '{$marca}' AND modelo = '{$modelo}'";
