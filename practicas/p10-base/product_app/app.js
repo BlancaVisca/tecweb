@@ -114,15 +114,16 @@ function buscarProducto(e) {
     };
     client.send("search=" + search);  // Enviar 'search' al servidor
 }
-
+//MENSAJE DE ALERTA
 function mostrarMensaje(mensaje) {
     console.log("Mensaje para alert:", mensaje);  // Ver en consola el mensaje
     window.alert(mensaje);  // Mostrar en el alert
 }
+
+//VALIDACION
 function validarProducto(finalJSON, nombre) {
     let errores = [];
 
-    // a. El nombre debe ser requerido y tener 100 caracteres o menos
     if (!nombre || nombre.length > 100) {
         errores.push("El nombre es obligatorio y debe tener 100 caracteres o menos.");
     }
@@ -132,35 +133,30 @@ function validarProducto(finalJSON, nombre) {
         errores.push("La marca es obligatoria.");
     }
 
-    // c. El modelo debe ser requerido, alfanumérico y de 25 caracteres o menos
     let modelo = finalJSON.modelo ? finalJSON.modelo.trim() : "";
     let modeloRegex = /^[a-zA-Z0-9\-]+$/; // Solo letras, números y guiones
     if (!modelo || modelo.length > 25 || !modeloRegex.test(modelo)) {
         errores.push("El modelo es obligatorio, alfanumérico y debe tener 25 caracteres o menos.");
     }
 
-    // d. El precio debe ser requerido y mayor a 99.99
     let precio = parseFloat(finalJSON.precio);
     if (isNaN(precio) || precio <= 99.99) {
         errores.push("El precio es obligatorio y debe ser mayor a 99.99.");
     }
 
-    // e. Los detalles son opcionales, pero deben tener 250 caracteres o menos
     let detalles = finalJSON.detalles ? finalJSON.detalles.trim() : "";
     if (detalles.length > 250) {
         errores.push("Los detalles deben tener 250 caracteres o menos.");
     }
 
-    // f. Las unidades deben ser requeridas y el número registrado debe ser mayor o igual a 0
     let unidades = parseInt(finalJSON.unidades);
     if (isNaN(unidades) || unidades <= 0) {
         errores.push("Las unidades son obligatorias y deben ser 0 o más.");
     }
 
-
     return errores;
 }
-
+//FUNCIÓN CALLBACK DE BOTÓN "Agregar producto"
 function agregarProducto(e) {
     e.preventDefault();
 
