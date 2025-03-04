@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Product App</title>
+  </head>
+  <body onload="init()">
+
+    <!-- BARRA DE NAVEGACIÓN  -->
+    <nav>
+      <a href="#">Product App</a>
+      
+      <ul></ul>
+      
+      <!-- FORMULARIO DE BÚSQUEDA -->
+      <form>
+        <!-- Campo para búsqueda por ID 
+         <h5>Busqueda por ID</h5>
+        <input name="search" id="search" type="search" placeholder="Buscar por ID">
+        <button type="bottom" onclick="buscarID(event)">Buscar por ID</button>
+      </form>-->
+
+      <form>
+        <!-- Campo para búsqueda por marca, detalles o nombre -->
+        <h3>Busqueda De Productos:</h3>
+        <p>Buscar por ID,marca, detalles o nombre</p>
+
+        <input name="searchProduct" id="searchInput" type="search" placeholder="Ingresar Dato">
+        <button type="bottom" onclick="buscarProducto(event)">Buscar Producto</button>
+      </form>
+    </nav>
+
+    <div>
+      <div>
+        <!-- FORMULARIO PARA AGREGAR PRODUCTO -->
+         <h3>Registro de productos</h3>
+        <form id="task-form">
+          <div>
+            <input type="text" id="name" placeholder="Nombre de producto">
+          </div>
+          <div>
+            <textarea id="description" cols="30" rows="10" placeholder="JSON de producto"></textarea>
+          </div>
+          <input type="hidden" id="taskId">
+          <button type="submit" onclick="agregarProducto(event)" >
+            Agregar Producto
+          </button>
+        </form>
+      </div>
+
+      <!-- TABLA  -->
+      <div>
+        <ul></ul>
+
+        <table>
+          <thead>
+            <tr>
+              <td>Id</td>
+              <td>Nombre</td>
+              <td>Descripción</td>
+            </tr>
+          </thead>
+          <tbody id="productos"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Lógica del Frontend -->
+    <script src="./app.js"></script>
+  </body>
+</html>
