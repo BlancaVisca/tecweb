@@ -199,10 +199,10 @@ $('#product-form').submit(function (e) {
 
             $('#product-result').removeClass('d-none').addClass('d-block');
             $('#container').html(template_bar);
-            listarProductos();
-        },
-        error: function (xhr, status, error) {
-            console.error("Error al agregar el producto:", error);
+
+            setTimeout(() => {
+                listarProductos();
+            }, 500);
         }
     });
 });
