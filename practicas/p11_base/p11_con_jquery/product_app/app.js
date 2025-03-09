@@ -63,19 +63,20 @@ $('#search').keyup(function() {
     if($('#search').val()) {
         let search = $('#search').val();
         $.ajax({
-            url: './backend/product-search.php', 
-            data: { search: search },
-            type: 'POST',
+            url: './backend/product-search.php',
+            data: {search},
+            type: 'GET',
             success: function (response) {
                 if(!response.error) {
                     const productos = JSON.parse(response);
 
                     if(Object.keys(productos).length > 0) {
+
                         let template = '';
                         let template_bar = '';
 
                         productos.forEach(producto => {
-                            
+
                             let descripcion = '';
                             descripcion += '<li>precio: '+producto.precio+'</li>';
                             descripcion += '<li>unidades: '+producto.unidades+'</li>';
@@ -97,7 +98,7 @@ $('#search').keyup(function() {
                             `;
 
                             template_bar += `
-                                <li>${producto.nombre}</li> <!-- Corregido el cierre de la etiqueta 'li' -->
+                                <li>${producto.nombre}</il>
                             `;
                         });
                         $('#product-result').removeClass('d-none').show();
@@ -110,10 +111,9 @@ $('#search').keyup(function() {
     }
     else {
         $('#product-result').hide();
+        listarProductos(); 
     }
 });
-
-
 
 ///FUNCION DE VALIDACIÓN
 function validarProducto(finalJSON, nombre) {
