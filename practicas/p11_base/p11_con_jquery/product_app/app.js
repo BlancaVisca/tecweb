@@ -22,7 +22,7 @@ function init() {
 }
 
 
-///FUNCIÓN PARA BUSCAR MOSTRAR LOS PRODUCTOS AL INICIO
+///FUNCIÓN PARA LISTAR LOS PRODUCTOS AL INICIO
 
 function listarProductos() {
     $.ajax({
@@ -207,7 +207,7 @@ $('#product-form').submit(function (e) {
     });
 });
 
-// FUNCIÓN CALLBACK DE BOTÓN "Eliminar"
+// FUNCIÓN PARA ELIMINAR PRODUCTOS
 
 $(document).on("click", ".product-delete", function () {
     if (confirm("¿Deseas eliminar el Producto?")) {
