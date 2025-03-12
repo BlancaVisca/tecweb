@@ -108,6 +108,7 @@ $(document).ready(function() {
 $("#name, #precio, #unidades, #modelo, #marca").blur(function() {
     validarCampo($(this));
 });
+
 function validarCampo(elemento) {
     let valor = elemento.val().trim();
     let mensaje = "";
@@ -144,12 +145,20 @@ $("#imagen").blur(function() {
 
 function mostrarEstado(mensaje, elemento) {
     let estadoCampo = elemento.next('.status-bar'); // Buscar barra de estado junto al campo
-    if (!estadoCampo.length) {
+    // Si no hay barra de estado, la creamos
+    if (!estadoCampo.length && mensaje) {
         estadoCampo = $('<div class="status-bar" style="color:#ffe18b; font-size:12px;"></div>');
         elemento.after(estadoCampo);
     }
-    estadoCampo.text(mensaje);
+    
+    // Si hay un mensaje, lo mostramos
+    if (mensaje) {
+        estadoCampo.text(mensaje).show(); // Muestra el mensaje
+    } else {
+        estadoCampo.remove(); // Si no hay mensaje, eliminamos la barra
+    }
 }
+
 
 
     // AGREGAR O MODIFICAR UN PRODUCTO
@@ -157,6 +166,7 @@ function mostrarEstado(mensaje, elemento) {
         e.preventDefault();
         //Elimina los mensaje de las validaciones anterirores
         $(".status-bar").remove();
+        $('#error-message').hide();
         
         // SE CONVIERTE EL JSON DE STRING A OBJETO
         let postData = {
@@ -211,6 +221,35 @@ function mostrarEstado(mensaje, elemento) {
             edit = false;
         });
     });
+
+    $('#name').keyup(function() {
+        let search = $('#name').val(); 
+        if(search.length > 0) { 
+            $.ajax({
+                url: './backend/product-name.php?name=' + search, 
+                type: 'GET',
+                success: function (response) {
+                    const data = JSON.parse(response); 
+        
+                    // Si ya existe un producto con el nombre
+                    if(data.error) {
+                        // Muestra un mensaje de "nombre inválido" en rojo
+                        $('#name').addClass('invalid');
+                        $('#error-message').text('Nombre inválido, ya existe un producto con ese nombre')
+                            .css('color', 'red') 
+                    } else {
+                        // Si el nombre es válido, muestra el mensaje en verde
+                        $('#name').removeClass('invalid');
+                        $('#error-message').text('Nombre válido').css('color', '#72d600').show(); 
+                    }
+                },
+
+            });
+        } 
+    });
+    
+    
+  
 
     // ELIMINAR PRODUCTO
     $(document).on('click', '.product-delete', function() {
