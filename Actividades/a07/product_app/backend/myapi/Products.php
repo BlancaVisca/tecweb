@@ -186,36 +186,34 @@ class Products extends DataBase {
     }
     
 
-
+//FUNCION EXTRA DE VALIDACION DE NOMBRE PARA EL
 
 public function name($name) {
-    // Escapar el nombre para evitar inyecciones SQL
+
     $name = $this->conexion->real_escape_string($name);
 
-    // Consulta para verificar si el producto con ese nombre ya existe
+  
     if ($result = $this->conexion->query("SELECT * FROM productos WHERE nombre = '{$name}'")) {
         $row = $result->fetch_assoc();
         
-        // Si el producto ya existe, enviamos error
         if (!is_null($row)) {
-            $this->data['error'] = true;  // Establecer el error
-            $this->data['message'] = 'Ya existe un producto con ese nombre';  // Mensaje de error
+            $this->data['error'] = true; 
+            $this->data['message'] = 'Ya existe un producto con ese nombre'; 
         } else {
-            $this->data['error'] = false;  // No hay error si no existe el producto
-            $this->data['message'] = 'Nombre válido';  // Mensaje de éxito
+            $this->data['error'] = false;  
+            $this->data['message'] = 'Nombre válido'; 
         }
         
         $result->free();
     } else {
         $this->data['error'] = true;
-        $this->data['message'] = 'Error en la consulta SQL';  // En caso de error en la consulta
-    }
+        $this->data['message'] = 'Error en la consulta SQL';  
 
     $this->conexion->close();
-    //echo json_encode($this->data);  // Devuelve la respuesta en formato JSON
-}
-
 
 }
 
+
+}
+}
 ?>

@@ -228,22 +228,19 @@ function mostrarEstado(mensaje, elemento) {
         let search = $('#name').val(); 
         if (search.length > 0) { 
             $.ajax({
-                url: './backend/product-name.php', // Cambié para hacer la llamada al script adecuado
+                url: './backend/product-name.php',
                 type: 'GET',
-                data: { name: search },  // Enviar el nombre a través de GET
+                data: { name: search },
                 success: function (response) {
-                    const data = JSON.parse(response);  // Parsear la respuesta JSON
-            
-                    // Si ya existe un producto con el nombre
+                    const data = JSON.parse(response);  
                     if(data.error) {
-                        // Muestra un mensaje de "nombre inválido" en rojo
                         $('#name').addClass('invalid');
-                        $('#error-message').text(data.message)  // Usar el mensaje devuelto
+                        $('#error-message').text(data.message)  
                             .css('color', 'red');
                     } else {
-                        // Si el nombre es válido, muestra el mensaje en verde
+                        
                         $('#name').removeClass('invalid');
-                        $('#error-message').text(data.message)  // Usar el mensaje devuelto
+                        $('#error-message').text(data.message)  
                             .css('color', '#72d600').show(); 
                     }
                 },
