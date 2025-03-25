@@ -223,29 +223,30 @@ function mostrarEstado(mensaje, elemento) {
     });
 
 
-    
+    //FUNCION EXTRA PARA LA VALIDACION DEL NOMBRE
     $('#name').keyup(function() {
         let search = $('#name').val(); 
-        if(search.length > 0) { 
+        if (search.length > 0) { 
             $.ajax({
-                url: './backend/product-name.php?name=' + search, 
+                url: './backend/product-name.php', // Cambié para hacer la llamada al script adecuado
                 type: 'GET',
+                data: { name: search },  // Enviar el nombre a través de GET
                 success: function (response) {
-                    const data = JSON.parse(response); 
-        
+                    const data = JSON.parse(response);  // Parsear la respuesta JSON
+            
                     // Si ya existe un producto con el nombre
                     if(data.error) {
                         // Muestra un mensaje de "nombre inválido" en rojo
                         $('#name').addClass('invalid');
-                        $('#error-message').text('Nombre inválido, ya existe un producto con ese nombre')
-                            .css('color', 'red') 
+                        $('#error-message').text(data.message)  // Usar el mensaje devuelto
+                            .css('color', 'red');
                     } else {
                         // Si el nombre es válido, muestra el mensaje en verde
                         $('#name').removeClass('invalid');
-                        $('#error-message').text('Nombre válido').css('color', '#72d600').show(); 
+                        $('#error-message').text(data.message)  // Usar el mensaje devuelto
+                            .css('color', '#72d600').show(); 
                     }
                 },
-
             });
         } 
     });
