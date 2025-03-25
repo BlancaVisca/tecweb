@@ -198,7 +198,7 @@ function mostrarEstado(mensaje, elemento) {
          
         const url = edit === false ? './backend/product-add.php' : './backend/product-edit.php';
         
-        $.post(url, { postData: postData }, function(response) {
+        $.post(url, postData, (response) => {
             // SE OBTIENE EL OBJETO DE DATOS A PARTIR DE UN STRING JSON
             let respuesta = JSON.parse(response);
             
@@ -207,24 +207,22 @@ function mostrarEstado(mensaje, elemento) {
                 <li>Status: ${respuesta.status}</li>
                 <li>Mensaje: ${respuesta.message}</li>
             `;
-    
-            // Cambiar texto del botón
+
             $('button.btn-primary').text("Agregar Producto");
-            // Reiniciar el formulario
+            // SE REINICIA EL FORMULARIO
             $('#product-form')[0].reset();
-            // Hacer visible la barra de estado
+            // SE HACE VISIBLE LA BARRA DE ESTADO
             $('#product-result').show();
-            // Insertar la plantilla para la barra de estado
+            // SE INSERTA LA PLANTILLA PARA LA BARRA DE ESTADO
             $('#container').html(template_bar);
-            // Listar todos los productos
+            // SE LISTAN TODOS LOS PRODUCTOS
             listarProductos();
-            // Regresar la bandera de edición a false
+            // SE REGRESA LA BANDERA DE EDICIÓN A false
             edit = false;
-        }).fail(function(xhr, status, error) {
-            console.error("Error en la petición:", error);
         });
     });
 
+    
     $('#name').keyup(function() {
         let search = $('#name').val(); 
         if(search.length > 0) { 
@@ -272,6 +270,7 @@ function mostrarEstado(mensaje, elemento) {
             })
         }
     });
+
     // EDITAR PRODUCTO
     $(document).on('click', '.product-item', function(e) {
         e.preventDefault();

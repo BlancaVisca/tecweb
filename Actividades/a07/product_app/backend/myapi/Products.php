@@ -12,52 +12,37 @@ class Products extends DataBase {
         parent:: __construct($user, $pass, $db);
     }
 
-    public function add($Producto) {
 
-        // SE OBTIENE LA INFORMACIÓN DEL PRODUCTO ENVIADA POR EL CLIENTE
-        $data = array(
-            'status'  => 'error',
-            'message' => 'Ya existe un producto con ese nombre'
-        );
-        if (isset($Producto->nombre)) { // Se verifica si el nombre del producto está presente en el objeto
-    
-            // SE ASUME QUE LOS DATOS YA FUERON VALIDADOS ANTES DE ENVIARSE
-            $sql = "SELECT * FROM productos WHERE nombre = '{$Producto->nombre}' AND eliminado = 0";
-            $result = $this->conexion->query($sql);
-    
-            if ($result->num_rows == 0) {
-                $this->conexion->set_charset("utf8");
-                $sql = "INSERT INTO productos (nombre, marca, modelo, precio, detalles, unidades, imagen, eliminado) 
-                        VALUES ('{$Producto->nombre}', '{$Producto->marca}', '{$Producto->modelo}', {$Producto->precio}, 
-                                '{$Producto->detalles}', {$Producto->unidades}, '{$Producto->imagen}', 0)";
-                if ($this->conexion->query($sql)) {
-                    $data['status'] = "success";
-                    $data['message'] = "Producto agregado";
-                } else {
-                    $data['message'] = "ERROR: No se ejecutó $sql. " . mysqli_error($this->conexion);
-                }
+    public function addProduct($jsonOBJ) {
+        $sql = "SELECT * FROM productos WHERE nombre = '{$jsonOBJ->nombre}' AND eliminado = 0";
+        $result = $this->conexion->query($sql);
+
+        if ($result->num_rows == 0) {
+            $this->conexion->set_charset("utf8");
+            $sql = "INSERT INTO productos VALUES (null, '{$jsonOBJ->nombre}', '{$jsonOBJ->marca}', '{$jsonOBJ->modelo}', {$jsonOBJ->precio}, '{$jsonOBJ->detalles}', {$jsonOBJ->unidades}, '{$jsonOBJ->imagen}', 0)";
+            
+            if($this->conexion->query($sql)) {
+                $this->data['status'] = "success";
+                $this->data['message'] = "Producto agregado";
+            } else {
+                $this->data['message'] = "ERROR: No se ejecuto $sql. " . mysqli_error($this->conexion);
             }
-    
-            $result->free();
-            // Cierra la conexion
-            $this->conexion->close();
         }
-    
+
+        $result->free();
+        $this->conexion->close();
     }
     
 
     public function delete($id) {
-        // Verificar si se proporcionó un ID
         if (isset($id)) {
-            // Ejecutar la consulta SQL para "eliminar" (marcar como eliminado)
+            
             $sql = "UPDATE productos SET eliminado = 1 WHERE id = {$id}";
     
             if ($this->conexion->query($sql)) {
-                // Actualizar los valores de $this->data si la consulta fue exitosa
                 $this->data['status'] = "success";
                 $this->data['message'] = "Producto eliminado correctamente";
             } else {
-                // En caso de error en la consulta
                 $this->data['status'] = "error";
                 $this->data['message'] = "Error en la consulta: " . mysqli_error($this->conexion);
             }
@@ -65,8 +50,6 @@ class Products extends DataBase {
             $this->data['status'] = "error";
             $this->data['message'] = "ID no proporcionado";
         }
-    
-        // Cerrar la conexión
         $this->conexion->close();
     }
     
@@ -113,9 +96,6 @@ class Products extends DataBase {
 
     public function getData() {
 
-        if (empty($this->data)) {
-            return json_encode(["status" => "error", "message" => "No data available"], JSON_PRETTY_PRINT);
-        }
         return json_encode($this->data, JSON_PRETTY_PRINT);
     }
     
