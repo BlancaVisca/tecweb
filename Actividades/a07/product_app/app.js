@@ -198,7 +198,7 @@ function mostrarEstado(mensaje, elemento) {
          
         const url = edit === false ? './backend/product-add.php' : './backend/product-edit.php';
         
-        $.post(url, postData, (response) => {
+        $.post(url, { postData: postData }, function(response) {
             // SE OBTIENE EL OBJETO DE DATOS A PARTIR DE UN STRING JSON
             let respuesta = JSON.parse(response);
             
@@ -207,18 +207,21 @@ function mostrarEstado(mensaje, elemento) {
                 <li>Status: ${respuesta.status}</li>
                 <li>Mensaje: ${respuesta.message}</li>
             `;
-
+    
+            // Cambiar texto del botón
             $('button.btn-primary').text("Agregar Producto");
-            // SE REINICIA EL FORMULARIO
+            // Reiniciar el formulario
             $('#product-form')[0].reset();
-            // SE HACE VISIBLE LA BARRA DE ESTADO
+            // Hacer visible la barra de estado
             $('#product-result').show();
-            // SE INSERTA LA PLANTILLA PARA LA BARRA DE ESTADO
+            // Insertar la plantilla para la barra de estado
             $('#container').html(template_bar);
-            // SE LISTAN TODOS LOS PRODUCTOS
+            // Listar todos los productos
             listarProductos();
-            // SE REGRESA LA BANDERA DE EDICIÓN A false
+            // Regresar la bandera de edición a false
             edit = false;
+        }).fail(function(xhr, status, error) {
+            console.error("Error en la petición:", error);
         });
     });
 
@@ -252,17 +255,23 @@ function mostrarEstado(mensaje, elemento) {
   
 
     // ELIMINAR PRODUCTO
-    $(document).on('click', '.product-delete', function() {
-        if (confirm('¿Realmente deseas eliminar el producto?')) {
-            const element = $(this).closest('tr');
-            const id = element.attr('productId');
-            $.post('./backend/product-delete.php', { id }, (response) => {
-                $('#product-result').hide();
+    $(document).on('click', '.product-delete', function () {
+        if (confirm('¿Deseas eliminar el Producto?')) {
+    
+            let id = $(this).closest('tr').attr('productId');
+            console.log("ID del producto a eliminar:", id);
+            $.post('./backend/product-delete.php', { id: id }, function (response) {
+                let respuesta = JSON.parse(response);
+                let template_bar = `
+                    <li style="list-style: none;">status: ${respuesta.status}</li>
+                    <li style="list-style: none;">message: ${respuesta.message}</li>
+                `;
+                $('#container').html(template_bar);
+                $('#product-result').addClass('d-block');
                 listarProductos();
-            });
+            })
         }
     });
-
     // EDITAR PRODUCTO
     $(document).on('click', '.product-item', function(e) {
         e.preventDefault();

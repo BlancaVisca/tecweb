@@ -1,34 +1,16 @@
 <?php
-    include_once __DIR__.'/database.php';
+use TECWEB\MYAPI\Products as Products;
+require_once __DIR__ . '/myapi/Products.php';
 
-    // SE OBTIENE LA INFORMACIÓN DEL PRODUCTO ENVIADA POR EL CLIENTE
-    $data = array(
-        'status'  => 'error',
-        'message' => 'Ya existe un producto con ese nombre'
-    );
-    if(isset($_POST['nombre'])) {
-        // SE TRANSFORMA EL POST A UN STRING EN JSON, Y LUEGO A OBJETO
-        $jsonOBJ = json_decode( json_encode($_POST) );
-        // SE ASUME QUE LOS DATOS YA FUERON VALIDADOS ANTES DE ENVIARSE
-        $sql = "SELECT * FROM productos WHERE nombre = '{$jsonOBJ->nombre}' AND eliminado = 0";
-	    $result = $conexion->query($sql);
-        
-        if ($result->num_rows == 0) {
-            $conexion->set_charset("utf8");
-            $sql = "INSERT INTO productos VALUES (null, '{$jsonOBJ->nombre}', '{$jsonOBJ->marca}', '{$jsonOBJ->modelo}', {$jsonOBJ->precio}, '{$jsonOBJ->detalles}', {$jsonOBJ->unidades}, '{$jsonOBJ->imagen}', 0)";
-            if($conexion->query($sql)){
-                $data['status'] =  "success";
-                $data['message'] =  "Producto agregado";
-            } else {
-                $data['message'] = "ERROR: No se ejecuto $sql. " . mysqli_error($conexion);
-            }
-        }
+$prodObj = new TECWEB\MYAPI\Products('marketzone');
 
-        $result->free();
-        // Cierra la conexion
-        $conexion->close();
-    }
-
-    // SE HACE LA CONVERSIÓN DE ARRAY A JSON
-    echo json_encode($data, JSON_PRETTY_PRINT);
+// Verificar que los datos llegaron correctamente
+if (isset($_POST['postData'])) {
+    // Convertir los datos POST a un objeto PHP
+    $Producto = (object)$_POST['postData'];
+    $prodObj->add($Producto);
+    echo $prodObj->getData();  // Devolver la respuesta
+} else {
+    echo json_encode(['status' => 'error', 'message' => 'Datos no válidos']);
+}
 ?>
