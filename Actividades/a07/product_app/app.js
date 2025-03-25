@@ -222,6 +222,7 @@ function mostrarEstado(mensaje, elemento) {
         });
     });
 
+
     
     $('#name').keyup(function() {
         let search = $('#name').val(); 

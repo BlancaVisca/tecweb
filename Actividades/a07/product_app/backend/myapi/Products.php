@@ -13,25 +13,34 @@ class Products extends DataBase {
     }
 
 
-    public function addProduct($jsonOBJ) {
+    public function add($jsonOBJ) {
+
         $sql = "SELECT * FROM productos WHERE nombre = '{$jsonOBJ->nombre}' AND eliminado = 0";
         $result = $this->conexion->query($sql);
 
         if ($result->num_rows == 0) {
-            $this->conexion->set_charset("utf8");
-            $sql = "INSERT INTO productos VALUES (null, '{$jsonOBJ->nombre}', '{$jsonOBJ->marca}', '{$jsonOBJ->modelo}', {$jsonOBJ->precio}, '{$jsonOBJ->detalles}', {$jsonOBJ->unidades}, '{$jsonOBJ->imagen}', 0)";
-            
-            if($this->conexion->query($sql)) {
-                $this->data['status'] = "success";
-                $this->data['message'] = "Producto agregado";
-            } else {
-                $this->data['message'] = "ERROR: No se ejecuto $sql. " . mysqli_error($this->conexion);
-            }
-        }
 
+            $this->conexion->set_charset("utf8");
+            $sql = "INSERT INTO productos (nombre, marca, modelo, precio, detalles, unidades, imagen, eliminado) 
+                    VALUES ('{$jsonOBJ->nombre}', '{$jsonOBJ->marca}', '{$jsonOBJ->modelo}', {$jsonOBJ->precio}, 
+                            '{$jsonOBJ->detalles}', {$jsonOBJ->unidades}, '{$jsonOBJ->imagen}', 0)";
+    
+            if ($this->conexion->query($sql)) {
+                $this->data['status'] = "success";
+                $this->data['message'] = "Producto agregado correctamente";
+            } else {
+                $this->data['status'] = "error";
+                $this->data['message'] = "ERROR: No se ejecutó la consulta. " . mysqli_error($this->conexion);
+            }
+        } else {
+            $this->data['status'] = "error";
+            $this->data['message'] = "El producto ya existe";
+        }
         $result->free();
         $this->conexion->close();
     }
+    
+    
     
 
     public function delete($id) {
@@ -54,9 +63,34 @@ class Products extends DataBase {
     }
     
     
-    public function edit(){
+    public function edit($jsonOBJ) {
+        
+        $sql = "UPDATE productos SET 
+                    nombre='{$jsonOBJ->nombre}', 
+                    marca='{$jsonOBJ->marca}', 
+                    modelo='{$jsonOBJ->modelo}', 
+                    precio={$jsonOBJ->precio}, 
+                    detalles='{$jsonOBJ->detalles}', 
+                    unidades={$jsonOBJ->unidades}, 
+                    imagen='{$jsonOBJ->imagen}' 
+                WHERE id={$jsonOBJ->id}";
+    
+        $this->conexion->set_charset("utf8");
 
+        if ($this->conexion->query($sql)) {
+
+            $this->data['status'] = "success";
+            $this->data['message'] = "Producto actualizado";
+        } else {
+
+            $this->data['status'] = "error";
+            $this->data['message'] = "ERROR: No se ejecutó la consulta. " . mysqli_error($this->conexion);
+        }
+    
+        $this->conexion->close();
     }
+    
+    
 
     public function list() {
         // SE CREA EL ARREGLO QUE SE VA A DEVOLVER EN FORMA DE JSON
