@@ -272,7 +272,9 @@ function mostrarEstado(mensaje, elemento) {
         }
     });
 
-    // EDITAR PRODUCTO
+    // EDITAR PRODUCTO   -----------> ID
+
+    /*
     $(document).on('click', '.product-item', function(e) {
         e.preventDefault();
         const element = $(this).closest('tr');
@@ -296,4 +298,35 @@ function mostrarEstado(mensaje, elemento) {
             $('button.btn-primary').text("Modificar Producto");
         });
     });
+*/
+
+    // EDITAR PRODUCTO POR NOMBRE
+    $(document).on('click', '.product-item', function(e) {
+    e.preventDefault();
+    const element = $(this).closest('tr');  // Selecciona la fila completa que contiene el nombre
+
+    // Obtener el nombre del producto desde el enlace <a> con la clase product-item
+    const name = element.find('td a.product-item').text();
+    console.log('Nombre del producto:', name);
+
+    $.post('./backend/product-singleByName.php', { name }, (response) => {
+        // SE CONVIERTE A OBJETO EL JSON OBTENIDO
+        let product = JSON.parse(response);
+
+        // SE INSERTAN LOS DATOS ESPECIALES EN LOS CAMPOS CORRESPONDIENTES
+        $('#name').val(product.nombre);
+        $('#productId').val(product.id);  // Aquí seguimos usando el id para actualización
+        $('#precio').val(product.precio);
+        $('#unidades').val(product.unidades);
+        $('#modelo').val(product.modelo);
+        $('#marca').val(product.marca);
+        $('#detalles').val(product.detalles);
+        $('#imagen').val(product.imagen);
+
+        // SE PONE LA BANDERA DE EDICIÓN EN true
+        edit = true;
+        $('button.btn-primary').text("Modificar Producto");
+    });
+});
+
 });

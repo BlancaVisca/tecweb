@@ -116,16 +116,68 @@ class Products extends DataBase {
         $this->conexion->close();
     }
     
+    public function search($search){
+        $sql = "SELECT * FROM productos WHERE (id = '{$search}' OR nombre LIKE '%{$search}%' OR marca LIKE '%{$search}%' OR detalles LIKE '%{$search}%') AND eliminado = 0";
+        if ( $result = $this->conexion->query($sql) ) {
+            // SE OBTIENEN LOS RESULTADOS
+			$rows = $result->fetch_all(MYSQLI_ASSOC);
 
-    public function search(){
+            if(!is_null($rows)) {
+                // SE CODIFICAN A UTF-8 LOS DATOS Y SE MAPEAN AL ARREGLO DE RESPUESTA
+                foreach($rows as $num => $row) {
+                    foreach($row as $key => $value) {
+                        $this->data[$num][$key] = utf8_encode($value);
+                    }
+                }
+            }
+			$result->free();
+		} else {
+            die('Query Error: '.mysqli_error($this->conexion));
+        }
+		$this->conexion->close();
+    } 
+    
 
+    
+
+    public function single($id){
+
+        if ( $result = $this->conexion->query("SELECT * FROM productos WHERE id = {$id}") ) {
+            // SE OBTIENEN LOS RESULTADOS
+            $row = $result->fetch_assoc();
+
+            if(!is_null($row)) {
+                // SE CODIFICAN A UTF-8 LOS DATOS Y SE MAPEAN AL ARREGLO DE RESPUESTA
+                foreach($row as $key => $value) {
+                    $this->data[$key] = utf8_encode($value);
+                }
+            }
+            $result->free();
+        } else {
+            die('Query Error: '.mysqli_error($this->conexion));
+        }
+        $this->conexion->close();
     }
 
-    public function single(){
 
-    }
-    public function singleByName(){
+    
+    public function singleByName($name){
 
+        if ( $result = $this->conexion->query("SELECT * FROM productos WHERE nombre = '{$name}'") ) {
+            // SE OBTIENEN LOS RESULTADOS
+            $row = $result->fetch_assoc();
+
+            if(!is_null($row)) {
+                // SE CODIFICAN A UTF-8 LOS DATOS Y SE MAPEAN AL ARREGLO DE RESPUESTA
+                foreach($row as $key => $value) {
+                    $this->data[$key] = utf8_encode($value);
+                }
+            }
+            $result->free();
+        } else {
+            die('Query Error: '.mysqli_error($this->conexion));
+        }
+        $this->conexion->close();
     }
 
     public function getData() {
