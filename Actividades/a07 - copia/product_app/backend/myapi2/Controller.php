@@ -54,5 +54,12 @@ class ProductController {
         return $this->view->getData();
 
     }
+
+    public function listProduct() {
+        $response = $this->model->list();
+        $this->view->setData($response);
+        return $this->view->getData();
+    }
+    
 }
 ?>

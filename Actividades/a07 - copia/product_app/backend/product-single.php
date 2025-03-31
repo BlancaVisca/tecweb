@@ -1,12 +1,10 @@
 <?php
+require_once __DIR__ . '/myapi2/Model.php';
+use TECWEB\MYAPI\Models\ProductModel;
 
-use TECWEB\MYAPI\Products as Products;
-require_once __DIR__ . '/myapi/Products.php';
-
-
-    $id = $_POST['id'];  
-    $prodObj = new Products('marketzone');  
-    $prodObj->single($id);  
-    echo $prodObj->getData();  
+$id = $_POST['id'];    
+$prodObj = new ProductModel('marketzone');  
+$response = $prodObj->single($id);  
+echo json_encode($response, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 
 ?>

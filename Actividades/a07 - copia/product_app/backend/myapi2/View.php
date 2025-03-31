@@ -15,6 +15,9 @@ class ProductView {
             $jsonData = json_encode($this->data, JSON_PRETTY_PRINT);
             return $jsonData;
         }
+        public function setData($data) {
+            $this->data = $data;
+        }
         public function ins_exi(){
             $this->data['status'] =  "success";
             $this->data['message'] =  "Producto agregado  :)";
@@ -31,17 +34,6 @@ class ProductView {
             $this->data['status'] =  "error";
             $this->data['message'] =  "No se pudo eliminar el producto";
         }
-       
-
-
-
-
-
-
-        public function ins_ine(){
-            $this->data['status'] =  "error";
-            $this->data['message'] =  "Producto ya existente";
-        }
         public function edi_exi(){
             $this->data['status'] =  "success";
             $this->data['message'] =  "Producto editado correctamente";
@@ -50,14 +42,7 @@ class ProductView {
             $this->data['status'] =  "error";
             $this->data['message'] =  "Producto no editado";
         }
-        public function ext_exi(){
-            $this->data['status'] =  "success";
-            $this->data['message'] =  "Producto extraido correctamente";
-        }
-        public function ext_fal(){
-            $this->data['status'] =  "error";
-            $this->data['message'] =  "Producto no extraido";
-        }
+
     }
     
 ?>

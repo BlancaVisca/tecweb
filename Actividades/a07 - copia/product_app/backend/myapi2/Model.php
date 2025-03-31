@@ -66,5 +66,84 @@ class ProductModel extends DataBase {
     
         
     }
+
+    public function search($search) {
+        $sql = "SELECT * FROM productos 
+                WHERE (id = '{$search}' OR nombre LIKE '%{$search}%' OR marca LIKE '%{$search}%' OR detalles LIKE '%{$search}%') 
+                AND eliminado = 0";
+        
+        if ($result = $this->conexion->query($sql)) {
+            $rows = $result->fetch_all(MYSQLI_ASSOC);
+    
+            // Codificación UTF-8 para evitar problemas con caracteres especiales
+            foreach ($rows as &$row) {
+                foreach ($row as $key => $value) {
+                    $row[$key] = utf8_encode($value);
+                }
+            }
+            $result->free();
+            return $rows; // Retorna los resultados directamente
+        }
+    }
+    
+    public function list() {
+ 
+        if ($result = $this->conexion->query("SELECT * FROM productos WHERE eliminado = 0")) {
+            $rows = $result->fetch_all(MYSQLI_ASSOC);
+            
+            if (!is_null($rows)) {
+                foreach ($rows as $num => $row) {
+                    foreach ($row as $key => $value) {
+                        $rows[$num][$key] = utf8_encode($value);
+                    }
+                }
+            }
+            
+            $result->free(); 
+        } else {
+            die('Query Error: '.mysqli_error($this->conexion));
+        }
+        $this->conexion->close();
+        return $rows;
+    }
+    
+
+    public function singleByName($name) {
+    
+        if ($result = $this->conexion->query("SELECT * FROM productos WHERE nombre = '{$name}'")) {
+            $row = $result->fetch_assoc();
+            if (!is_null($row)) {
+                foreach ($row as $key => $value) {
+                    $row[$key] = utf8_encode($value);
+                }
+                $result->free();
+                return $row;
+            }
+        } else {
+            die('Query Error: '.mysqli_error($this->conexion));
+        }
+        $this->conexion->close();
+        return null;
+    }
+    public function single($id) {
+    
+        if ($result = $this->conexion->query("SELECT * FROM productos WHERE id = {$id}")) {
+            $row = $result->fetch_assoc();
+            if (!is_null($row)) {
+                foreach ($row as $key => $value) {
+                    $row[$key] = utf8_encode($value);
+                }
+                $result->free();
+                return $row;
+            }
+        } else {
+            die('Query Error: '.mysqli_error($this->conexion));
+        }
+        $this->conexion->close();
+        return null;
+    }
+    
+    
+    
 }
 ?>
