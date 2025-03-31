@@ -1,13 +1,11 @@
 <?php
+require_once __DIR__ . '/myapi2/Controller.php';
+require_once __DIR__ . '/myapi2/View.php';
 
-use TECWEB\MYAPI\Products as Products;
-require_once __DIR__ . '/myapi/Products.php';
+use TECWEB\MYAPI\Controllers\ProductController;
+use TECWEB\MYAPI\Views\ProductView;
 
-if (isset($_POST['id'])) {
-    $jsonOBJ =  $_POST;
-    $prodObj = new Products('marketzone');
-    $prodObj-> edit($jsonOBJ);
-    echo $prodObj->getData();
-}
-
+$jsonOBJ = json_decode(json_encode($_POST)); 
+$controller = new ProductController('marketzone');
+echo $controller->editProduct($jsonOBJ);
 ?>

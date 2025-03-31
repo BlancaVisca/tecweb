@@ -1,13 +1,63 @@
 <?php
 namespace TECWEB\MYAPI\Views;
-
-
-
-///Solo retorna el data de model y ya 
+ 
 class ProductView {
-    public function renderJson($response) {
-        return $response;
-    }
-}
+    
+        private $data=NULL;
+    
+        public function __construct() {
+            $this->data = array(
+                'status' => 'error',
+                'message' => 'Hubo un error al procesar',
+            );
+        }
+        public function getData(){
+            $jsonData = json_encode($this->data, JSON_PRETTY_PRINT);
+            return $jsonData;
+        }
+        public function ins_exi(){
+            $this->data['status'] =  "success";
+            $this->data['message'] =  "Producto agregado  :)";
+        }
+        public function ins_fal(){
+            $this->data['status'] =  "error";
+            $this->data['message'] =  "Producto no agregado";
+        }
+        public function delete_exitoso(){
+            $this->data['status'] =  "success";
+            $this->data['message'] =  "Producto eliminado  :)";
+        }
+        public function delete_fail(){
+            $this->data['status'] =  "error";
+            $this->data['message'] =  "No se pudo eliminar el producto";
+        }
+       
 
+
+
+
+
+
+        public function ins_ine(){
+            $this->data['status'] =  "error";
+            $this->data['message'] =  "Producto ya existente";
+        }
+        public function edi_exi(){
+            $this->data['status'] =  "success";
+            $this->data['message'] =  "Producto editado correctamente";
+        }
+        public function edi_fal(){
+            $this->data['status'] =  "error";
+            $this->data['message'] =  "Producto no editado";
+        }
+        public function ext_exi(){
+            $this->data['status'] =  "success";
+            $this->data['message'] =  "Producto extraido correctamente";
+        }
+        public function ext_fal(){
+            $this->data['status'] =  "error";
+            $this->data['message'] =  "Producto no extraido";
+        }
+    }
+    
 ?>
