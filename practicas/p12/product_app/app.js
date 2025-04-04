@@ -271,7 +271,7 @@ function mostrarEstado(mensaje, elemento) {
     });
 
     // EDITAR PRODUCTO   -----------> ID
-
+/*
     
     $(document).on('click', '.product-item', function(e) {
         e.preventDefault();
@@ -297,7 +297,7 @@ function mostrarEstado(mensaje, elemento) {
         });
     });
 
-/*
+*/
     // EDITAR PRODUCTO POR NOMBRE
     $(document).on('click', '.product-item', function(e) {
     e.preventDefault();
@@ -325,6 +325,6 @@ function mostrarEstado(mensaje, elemento) {
         edit = true;
         $('button.btn-primary').text("Modificar Producto");
     });
-});*/
+});
 
 });

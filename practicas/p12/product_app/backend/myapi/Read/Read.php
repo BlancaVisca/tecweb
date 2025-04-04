@@ -79,6 +79,29 @@ class Read extends DataBase {
         $this->conexion->close();
     }
 
+    public function singleByName($name){
+
+        if ( $result = $this->conexion->query("SELECT * FROM productos WHERE nombre = '{$name}'") ) {
+            // SE OBTIENEN LOS RESULTADOS
+            $row = $result->fetch_assoc();
+
+            if(!is_null($row)) {
+                // SE CODIFICAN A UTF-8 LOS DATOS Y SE MAPEAN AL ARREGLO DE RESPUESTA
+                foreach($row as $key => $value) {
+                    $this->data[$key] = utf8_encode($value);
+                }
+            }
+            $result->free();
+        } else {
+            die('Query Error: '.mysqli_error($this->conexion));
+        }
+        $this->conexion->close();
+    }
+
+    public function getData() {
+
+        return json_encode($this->data, JSON_PRETTY_PRINT);
+    }
 
     
 
