@@ -93,6 +93,7 @@ Class Controler{
             echo $msj->getData();
         }
         $conexion->close(); 
+
     }
     public function extraer($id,$obj){
         $msj = new View();
@@ -144,6 +145,7 @@ Class Controler{
         $jsonData = json_encode($arr, JSON_PRETTY_PRINT);
         return $jsonData;
     }
+
     public function search($search, $obj){
         $msj = new View();
         $dat= [];

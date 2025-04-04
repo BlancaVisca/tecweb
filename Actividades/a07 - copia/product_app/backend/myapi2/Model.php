@@ -125,6 +125,7 @@ class ProductModel extends DataBase {
         $this->conexion->close();
         return null;
     }
+    
     public function single($id) {
     
         if ($result = $this->conexion->query("SELECT * FROM productos WHERE id = {$id}")) {

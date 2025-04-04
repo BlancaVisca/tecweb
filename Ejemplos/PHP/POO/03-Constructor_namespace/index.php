@@ -7,6 +7,7 @@
 </head>
 <body>
     <?php
+    ///Podemos renombrar las clases
     use EJEMPLOS\POO\Cabecera2 as Cabecera;
     require_once __DIR__ . '/Cabecera.php';
 /*
