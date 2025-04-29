@@ -24,7 +24,7 @@ $app->get('/hola', function (Request $request, Response $response, $args) {
     return $response;
 });
 //LISTAR
-$app->get('/productos/leer', function (Request $request, Response $response, $args) {
+$app->get('/products', function (Request $request, Response $response, $args) {
     $prodObj = new Read('marketzone');
     $prodObj->list();  
     $data = $prodObj->getData();  
@@ -33,7 +33,7 @@ $app->get('/productos/leer', function (Request $request, Response $response, $ar
 });
 
 // BUSCAR
-$app->get('/productos/buscar', function (Request $request, Response $response, $args) {
+$app->get('/products1', function (Request $request, Response $response, $args) {
     $search = $request->getQueryParams()['search'];
 
     $prodObj = new Read('marketzone');
@@ -79,13 +79,31 @@ $app->post('/productos', function (Request $request, Response $response, $args) 
 
 
 // CONSULTA POR NOMBRE
-$app->post('/productos/buscar-nombre', function (Request $request, Response $response, $args) {
-    $parsedBody = $request->getParsedBody();
-    $name = $parsedBody['name'] ?? null;
+$app->get('/productos/buscar-nombre', function (Request $request, Response $response, $args) {
+    // Obtener el parámetro 'name' desde la query string
+    $name = $request->getQueryParams()['name'] ?? null;
 
+    // Instanciar la clase y buscar el producto por nombre
     $prodObj = new Read('marketzone');
     $prodObj->singleByName($name);
     $data = $prodObj->getData();
+
+    // Escribir la respuesta como JSON
+    $response->getBody()->write($data);
+    return $response;
+});
+
+// CONSULTA POR ID
+$app->get('/product', function (Request $request, Response $response, $args) {
+    // Obtener el parámetro 'name' desde la query string
+    $id = $request->getQueryParams()['id'] ?? null;
+
+    // Instanciar la clase y buscar el producto por nombre
+    $prodObj = new Read('marketzone');
+    $prodObj->single($id);
+    $data = $prodObj->getData();
+
+    // Escribir la respuesta como JSON
     $response->getBody()->write($data);
     return $response;
 });

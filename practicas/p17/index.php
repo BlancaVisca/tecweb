@@ -38,6 +38,7 @@ $app->get("/testjson", function($request, $response, $args){
     $response->getBody()->write(json_encode($data, JSON_PRETTY_PRINT));
     return $response;
 });
+
 //CON POST
 $app->post("/testjson", function($request, $response, $args){
     $reqPost = $request->getParsedBody(); 

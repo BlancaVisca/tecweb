@@ -5,13 +5,9 @@ $(document).ready(function() {
 
     // FUNCIÓN PARA LISTAR PRODUCTOS
     function listarProductos() {
-        $.ajax({
-            url: 'http://localhost/tecweb/practicas/p13/product_app/backend/productos/leer',
-            type: 'GET',
-            success: function(response) {
-                 
-                // SE OBTIENE EL OBJETO DE DATOS A PARTIR DE UN STRING JSON
-                const productos = JSON.parse(response);
+        $.get('http://localhost/tecweb/practicas/p13/product_app/backend/products', function(response) {
+        // SE OBTIENE EL OBJETO DE DATOS A PARTIR DE UN STRING JSON
+        const productos = JSON.parse(response);
                 // SE VERIFICA SI EL OBJETO JSON TIENE DATOS
                 if (Object.keys(productos).length > 0) {
                     let template = '';
@@ -42,17 +38,13 @@ $(document).ready(function() {
                     $('#products').html(template);
                 }
             }
-        });
+        );
     }
 
     $('#search').keyup(function() {
         if($('#search').val()) {
             let search = $('#search').val();
-            $.ajax({
-                url: 'http://localhost/tecweb/practicas/p13/product_app/backend/productos/buscar?search=${search}',
-                data: {search},
-                type: 'GET',
-                success: function (response) {
+            $.get('http://localhost/tecweb/practicas/p13/product_app/backend/products1', { search }, function(response) {
                     if(!response.error) {
                         // SE OBTIENE EL OBJETO DE DATOS A PARTIR DE UN STRING JSON
                         const productos = JSON.parse(response);
@@ -98,7 +90,7 @@ $(document).ready(function() {
                         }
                     }
                 }
-            });
+            );
         }
         else {
             $('#product-result').hide();
@@ -282,14 +274,14 @@ function mostrarEstado(mensaje, elemento) {
     
 
     // EDITAR PRODUCTO   -----------> ID
-/*
+
     
     $(document).on('click', '.product-item', function(e) {
         e.preventDefault();
         const element = $(this).closest('tr');
         const id = element.attr('productId');
 
-        $.post('./backend/product-single.php', { id }, (response) => {
+        $.get('http://localhost/tecweb/practicas/p13/product_app/backend/product', { id }, (response) => {
             // SE CONVIERTE A OBJETO EL JSON OBTENIDO
             let product = JSON.parse(response);
             // SE INSERTAN LOS DATOS ESPECIALES EN LOS CAMPOS CORRESPONDIENTES
@@ -308,7 +300,8 @@ function mostrarEstado(mensaje, elemento) {
         });
     });
 
-*/
+
+/*
     // EDITAR PRODUCTO POR NOMBRE
     $(document).on('click', '.product-item', function(e) {
     e.preventDefault();
@@ -318,7 +311,7 @@ function mostrarEstado(mensaje, elemento) {
     const name = element.find('td a.product-item').text();
     console.log('Nombre del producto:', name);
 
-    $.post('http://localhost/tecweb/practicas/p13/product_app/backend/productos/buscar-nombre', { name }, (response) => {
+    $.get('http://localhost/tecweb/practicas/p13/product_app/backend/productos/buscar-nombre', { name }, (response) => {
         // SE CONVIERTE A OBJETO EL JSON OBTENIDO
         let product = JSON.parse(response);
 
@@ -337,5 +330,6 @@ function mostrarEstado(mensaje, elemento) {
         $('button.btn-primary').text("Modificar Producto");
     });
 });
+*/
 
 });
