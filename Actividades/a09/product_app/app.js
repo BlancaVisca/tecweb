@@ -5,7 +5,7 @@ $(document).ready(function() {
 
     // FUNCIÓN PARA LISTAR PRODUCTOS
     function listarProductos() {
-        $.get('http://localhost/tecweb/Actividades/a09/product_app/backend/productsaux', function(response) {
+        $.get('http://localhost/tecweb/Actividades/a09/product_app/backend/products', function(response) {
         // SE OBTIENE EL OBJETO DE DATOS A PARTIR DE UN STRING JSON
         const productos = JSON.parse(response);
                 // SE VERIFICA SI EL OBJETO JSON TIENE DATOS
@@ -44,7 +44,7 @@ $(document).ready(function() {
     $('#search').keyup(function() {
         if($('#search').val()) {
             let search = $('#search').val();
-            $.get('http://localhost/tecweb/Actividades/a09/product_app/backend/productsaux', { search }, function(response) {
+            $.get('http://localhost/tecweb/Actividades/a09/product_app/backend/products', { search }, function(response) {
                     if(!response.error) {
                         // SE OBTIENE EL OBJETO DE DATOS A PARTIR DE UN STRING JSON
                         const productos = JSON.parse(response);

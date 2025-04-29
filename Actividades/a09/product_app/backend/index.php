@@ -19,14 +19,12 @@ $app->setBasePath('/tecweb/Actividades/a09/product_app/backend');
 
 
 
-$app->get('/hola', function (Request $request, Response $response, $args) {
-    $response->getBody()->write("Hola Slim está funcionando");
-    return $response;
-});
 
-$app->get('/productsaux', function (Request $request, Response $response, $args) {
+
+//UNION DE ADD CON SEARCH
+$app->get('/products', function (Request $request, Response $response, $args) {
     $queryParams = $request->getQueryParams();
-    $search = $queryParams['search'] ?? null;  // Maneja el caso en que 'search' no venga
+    $search = $queryParams['search'] ?? null;  
 
     $prodObj = new Read('marketzone');
 
@@ -53,7 +51,7 @@ $app->get('/products1', function (Request $request, Response $response, $args) {
 });
 
 // BUSCAR
-$app->get('/products', function (Request $request, Response $response, $args) {
+$app->get('/products2', function (Request $request, Response $response, $args) {
     $search = $request->getQueryParams()['search'];
 
     $prodObj = new Read('marketzone');
