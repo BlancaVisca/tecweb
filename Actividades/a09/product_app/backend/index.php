@@ -38,14 +38,13 @@ $app->get('/productsaux', function (Request $request, Response $response, $args)
 
     $data = $prodObj->getData();
 
-    // Asegúrate de codificar como JSON y establecer el header
-    $response->getBody()->write(is_string($data) ? $data : json_encode($data, JSON_PRETTY_PRINT));
-    return $response->withHeader('Content-Type', 'application/json');
+    $response->getBody()->write($data);
+    return $response;
 });
 
 
 //LISTAR
-$app->get('/products', function (Request $request, Response $response, $args) {
+$app->get('/products1', function (Request $request, Response $response, $args) {
     $prodObj = new Read('marketzone');
     $prodObj->list();  
     $data = $prodObj->getData();  
