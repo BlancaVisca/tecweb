@@ -272,7 +272,7 @@ function mostrarEstado(mensaje, elemento) {
             console.log("ID del producto a eliminar:", id);
     
             $.ajax({
-                url: 'http://localhost/tecweb/Actividades/a09/product_app/backend/product',
+                url: `http://localhost/tecweb/practicas/p13/product_app/backend/productos/${id}`,
                 type: 'DELETE',
                 success: function (response) {
                     console.log("Respuesta del servidor:", response);

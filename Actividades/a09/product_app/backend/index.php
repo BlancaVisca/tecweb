@@ -61,12 +61,13 @@ $app->get('/products2', function (Request $request, Response $response, $args) {
     return $response;
 });
 // ELIMINAR
-$app->delete('/product', function (Request $request, Response $response, $args) {
+$app->delete('/product/{id}', function (Request $request, Response $response, $args) {
     $id = $args['id'];
     $prodObj = new Delete('marketzone');
     $prodObj->delete($id);
-    $response->getBody()->write($prodObj->getData());
-    return $response->withHeader('Content-Type', 'application/json');
+    $data = $prodObj->getData();
+    $response->getBody()->write($data);
+    return $response;
 });
 
 //EDITAR
