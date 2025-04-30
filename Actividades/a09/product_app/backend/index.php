@@ -20,29 +20,8 @@ $app->setBasePath('/tecweb/Actividades/a09/product_app/backend');
 
 
 
-
-//UNION DE ADD CON SEARCH
-$app->get('/products', function (Request $request, Response $response, $args) {
-    $queryParams = $request->getQueryParams();
-    $search = $queryParams['search'] ?? null;  
-
-    $prodObj = new Read('marketzone');
-
-    if ($search) {
-        $prodObj->search($search);
-    } else {
-        $prodObj->list();
-    }
-
-    $data = $prodObj->getData();
-
-    $response->getBody()->write($data);
-    return $response;
-});
-
-
 //LISTAR
-$app->get('/products1', function (Request $request, Response $response, $args) {
+$app->get('/products', function (Request $request, Response $response, $args) {
     $prodObj = new Read('marketzone');
     $prodObj->list();  
     $data = $prodObj->getData();  
@@ -51,15 +30,15 @@ $app->get('/products1', function (Request $request, Response $response, $args) {
 });
 
 // BUSCAR
-$app->get('/products2', function (Request $request, Response $response, $args) {
-    $search = $request->getQueryParams()['search'];
-
+$app->get('/products/{search}', function (Request $request, Response $response, $args) {
+    $search = $args['search'] ?? '';  
     $prodObj = new Read('marketzone');
     $prodObj->search($search);
     $data = $prodObj->getData();
     $response->getBody()->write($data);
     return $response;
 });
+
 // ELIMINAR
 $app->delete('/product/{id}', function (Request $request, Response $response, $args) {
     $id = $args['id'];
@@ -101,30 +80,22 @@ $app->post('/product', function (Request $request, Response $response, $args) {
 
 // CONSULTA POR NOMBRE
 $app->get('/productos/buscar-nombre', function (Request $request, Response $response, $args) {
-    // Obtener el parámetro 'name' desde la query string
     $name = $request->getQueryParams()['name'] ?? null;
 
-    // Instanciar la clase y buscar el producto por nombre
     $prodObj = new Read('marketzone');
     $prodObj->singleByName($name);
     $data = $prodObj->getData();
 
-    // Escribir la respuesta como JSON
     $response->getBody()->write($data);
     return $response;
 });
 
 // CONSULTA POR ID
-$app->get('/product', function (Request $request, Response $response, $args) {
-    // Obtener el parámetro 'name' desde la query string
-    $id = $request->getQueryParams()['id'] ?? null;
-
-    // Instanciar la clase y buscar el producto por nombre
+$app->get('/product/{id}', function (Request $request, Response $response, $args) {
+    $id = $args['id'] ?? null;
     $prodObj = new Read('marketzone');
     $prodObj->single($id);
     $data = $prodObj->getData();
-
-    // Escribir la respuesta como JSON
     $response->getBody()->write($data);
     return $response;
 });

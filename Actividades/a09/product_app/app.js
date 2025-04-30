@@ -42,28 +42,33 @@ $(document).ready(function() {
     }
 
     $('#search').keyup(function() {
-        if($('#search').val()) {
+        if ($('#search').val()) {
             let search = $('#search').val();
-            $.get('http://localhost/tecweb/Actividades/a09/product_app/backend/products', { search }, function(response) {
-                    if(!response.error) {
+            
+            // Usando $.ajax en lugar de $.get
+            $.ajax({
+                url: `http://localhost/tecweb/Actividades/a09/product_app/backend/products/${search}`,
+                type: 'GET',  // Método GET
+                success: function(response) {
+                    if (!response.error) {
                         // SE OBTIENE EL OBJETO DE DATOS A PARTIR DE UN STRING JSON
                         const productos = JSON.parse(response);
                         
                         // SE VERIFICA SI EL OBJETO JSON TIENE DATOS
-                        if(Object.keys(productos).length > 0) {
+                        if (Object.keys(productos).length > 0) {
                             // SE CREA UNA PLANTILLA PARA CREAR LAS FILAS A INSERTAR EN EL DOCUMENTO HTML
                             let template = '';
                             let template_bar = '';
-
+    
                             productos.forEach(producto => {
                                 // SE CREA UNA LISTA HTML CON LA DESCRIPCIÓN DEL PRODUCTO
                                 let descripcion = '';
-                                descripcion += '<li>precio: '+producto.precio+'</li>';
-                                descripcion += '<li>unidades: '+producto.unidades+'</li>';
-                                descripcion += '<li>modelo: '+producto.modelo+'</li>';
-                                descripcion += '<li>marca: '+producto.marca+'</li>';
-                                descripcion += '<li>detalles: '+producto.detalles+'</li>';
-                            
+                                descripcion += '<li>precio: ' + producto.precio + '</li>';
+                                descripcion += '<li>unidades: ' + producto.unidades + '</li>';
+                                descripcion += '<li>modelo: ' + producto.modelo + '</li>';
+                                descripcion += '<li>marca: ' + producto.marca + '</li>';
+                                descripcion += '<li>detalles: ' + producto.detalles + '</li>';
+    
                                 template += `
                                     <tr productId="${producto.id}">
                                         <td>${producto.id}</td>
@@ -76,9 +81,9 @@ $(document).ready(function() {
                                         </td>
                                     </tr>
                                 `;
-
+    
                                 template_bar += `
-                                    <li>${producto.nombre}</il>
+                                    <li>${producto.nombre}</li>
                                 `;
                             });
                             // SE HACE VISIBLE LA BARRA DE ESTADO
@@ -86,16 +91,19 @@ $(document).ready(function() {
                             // SE INSERTA LA PLANTILLA PARA LA BARRA DE ESTADO
                             $('#container').html(template_bar);
                             // SE INSERTA LA PLANTILLA EN EL ELEMENTO CON ID "productos"
-                            $('#products').html(template);    
+                            $('#products').html(template);
                         }
                     }
+                },
+                error: function(xhr, status, error) {
+                    console.error("Hubo un error en la solicitud:", status, error);
                 }
-            );
-        }
-        else {
+            });
+        } else {
             $('#product-result').hide();
         }
     });
+    
 
 // VALIDAR CAMPOS AL CAMBIAR DE FOCO
 $("#name, #precio, #unidades, #modelo, #marca").blur(function() {
@@ -301,25 +309,34 @@ function mostrarEstado(mensaje, elemento) {
         e.preventDefault();
         const element = $(this).closest('tr');
         const id = element.attr('productId');
-
-        $.get('http://localhost/tecweb/Actividades/a09/product_app/backend/product', { id }, (response) => {
-            // SE CONVIERTE A OBJETO EL JSON OBTENIDO
-            let product = JSON.parse(response);
-            // SE INSERTAN LOS DATOS ESPECIALES EN LOS CAMPOS CORRESPONDIENTES
-            $('#name').val(product.nombre);
-            $('#productId').val(product.id);
-            $('#precio').val(product.precio);
-            $('#unidades').val(product.unidades);
-            $('#modelo').val(product.modelo);
-            $('#marca').val(product.marca);
-            $('#detalles').val(product.detalles);
-            $('#imagen').val(product.imagen);
-            
-            // SE PONE LA BANDERA DE EDICIÓN EN true
-            edit = true;
-            $('button.btn-primary').text("Modificar Producto");
+    
+        $.ajax({
+            url: `http://localhost/tecweb/Actividades/a09/product_app/backend/product/${id}`,
+            method: 'GET',
+            success: function(response) {
+                // SE CONVIERTE A OBJETO EL JSON OBTENIDO
+                let product = JSON.parse(response);
+    
+                // SE INSERTAN LOS DATOS ESPECIALES EN LOS CAMPOS CORRESPONDIENTES
+                $('#name').val(product.nombre);
+                $('#productId').val(product.id);
+                $('#precio').val(product.precio);
+                $('#unidades').val(product.unidades);
+                $('#modelo').val(product.modelo);
+                $('#marca').val(product.marca);
+                $('#detalles').val(product.detalles);
+                $('#imagen').val(product.imagen);
+    
+                // SE PONE LA BANDERA DE EDICIÓN EN true
+                edit = true;
+                $('button.btn-primary').text("Modificar Producto");
+            },
+            error: function(xhr, status, error) {
+                console.log("Error en la solicitud AJAX:", error);
+            }
         });
     });
+    
 
 
 /*
